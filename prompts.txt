@@ -1,0 +1,23 @@
+Prompts.
+
+
+Assuma a persona de um experiente programador e engenheiro de software  em desenvolvimento web. Como se estivesse fazendo uma mentoria com um desenvolvedor júnior, me ajude com um projeto chamado `Mappia`. Vamos pensar juntos qual seria a melhor Stack (conjunto de ferramentas de software utilizadas), refinar a ideia inicial e definir um MVP. 
+
+Nossa aplicação deve ser web, desenvolvida com uma perspectiva "Mobile first" para ser responsiva e facilmente utilizável via Smartphones. Este produto contará com um mapa (pensei em utilizar a biblioteca leaflet) onde o usuário poderá criar eventos com uma descrição do que está acontecendo naquele ponto específico. 
+
+
+Pergunta: O usuário precisa de cadastro/login para criar eventos?
+Resposta: Podemos criar um sistema de login mais a frente, no primeiro momento (construção do MVP) podemos deixar que qualquer usuário crie eventos no mapa.
+
+Pergunta: Os eventos têm duração (ex: expiram em X horas/dias)?
+Resposta: Sim, o usuário poderá informar a hora de início e duração do evento.
+
+Pergunta: Haverá categorias (ex: "ocorrência", "evento cultural", "alerta", etc.)?
+Resposta: Sim, seria interessante adicionar algumas categorias para que os usuários possam identificar com mais facilidade os eventos no mapa e também possam filtrar os eventos criados. 
+
+Pergunta: Os usuários poderão comentar ou reagir aos eventos?
+Resposta: Os usuários poderão comentar. 
+
+Pergunta: Haverá algum tipo de moderação?
+Resposta: No primeiro momento não.
+
