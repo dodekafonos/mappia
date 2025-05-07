@@ -1,27 +1,39 @@
 <template>
-    <div
-      v-if="position"
-      class="absolute z-[1000] transform -translate-x-1/2 -translate-y-full cursor-pointer"
-      :style="{ left: `${position.x}px`, top: `${position.y}px` }"
-      @click="$emit('click')"
-      title="Criar novo evento"
-    >
-      <div
-        class="w-10 h-10 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center shadow-lg transition-all"
-      >
-        +
-      </div>
-    </div>
-  </template>
-  
-  <script setup>
-  defineProps({
-    position: {
-      type: Object,
-      required: false, // permitir que ele não exista no início
-    },
-  })
-  
-  defineEmits(['click'])
-  </script>
-  
+  <button
+    @click="handleClick"
+    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow"
+  >
+    Novo evento
+  </button>
+</template>
+
+<script setup>
+const emit = defineEmits(['click'])
+
+function handleClick() {
+  emit('click')
+}
+</script>
+
+
+<style scoped>
+button {
+  /* position: absolute; */
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 1000;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #1d4ed8;
+}
+</style>

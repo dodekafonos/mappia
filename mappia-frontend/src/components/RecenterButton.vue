@@ -6,7 +6,7 @@
   
   <style scoped>
   .recenter-btn {
-    position: absolute;
+    /* position: absolute; */
     bottom: 1.5rem;
     right: 1.5rem;
     z-index: 1000;

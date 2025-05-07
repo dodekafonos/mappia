@@ -9,35 +9,44 @@
     />
     <Loading v-else />
 
-    <RecenterButton @recenter="recenterMap" />
+    <Toolbar>
+      <RecenterButton @recenter="recenterMap" />
+      <NewEventButton @click="enableNewEventMode" />
+    </Toolbar>
 
-    <!-- Novo botão flutuante -->
-    <NewEventButton
-      v-if="newEventPosition"
-      :position="newEventPosition"
-      @click="openEventDrawer"
+    <NewEventDrawer
+      v-model:visible="isDrawerVisible"
+      :location="selectedLocation"
     />
+
+
   </div>
 </template>
 
 <script>
-import MapView from '../components/MapView.vue'
-import RecenterButton from '../components/RecenterButton.vue'
-import NewEventButton from '../components/NewEventButton.vue'
-import Loading from '../components/Loading.vue'
+import MapView from '@/components/MapView.vue'
+import RecenterButton from '@/components/RecenterButton.vue'
+import Loading from '@/components/Loading.vue'
+import NewEventButton from '@/components/NewEventButton.vue'
+import Toolbar from '@/components/Toolbar.vue'
+import NewEventDrawer from '@/components/NewEventDrawer.vue'
 
 export default {
   components: {
     MapView,
     RecenterButton,
-    NewEventButton,
     Loading,
+    NewEventButton,
+    Toolbar,
+    NewEventDrawer,
   },
   data() {
     return {
+      isDrawerVisible: false,
       zoom: 16,
       center: null,
-      newEventPosition: null,
+      selectedLocation: null,
+      isCreatingEvent: false,
     }
   },
   mounted() {
@@ -65,22 +74,31 @@ export default {
         )
       }
     },
-    handleMapClick(latlng) {
-      const map = this.getMap()
-      if (map) {
-        const point = map.latLngToContainerPoint(latlng)
-        this.newEventPosition = {
-          x: point.x,
-          y: point.y,
-        }
-      }
-    },
     getMap() {
       return this.$refs.mapComponent?.$refs.mapRef?.leafletObject || null
     },
-    openEventDrawer() {
-      console.log('Abrir formulário de criação de evento...')
-      // Aqui abriremos a gaveta futuramente
+    enableNewEventMode() {
+      this.isCreatingEvent = true
+      const map = this.getMap()
+      if (map) {
+        map.getContainer().style.cursor = 'pointer'
+      }
+    },
+    handleMapClick(latlng) {
+      if (this.isCreatingEvent) {
+        console.log('Coordenadas do novo evento:', latlng)
+        this.isCreatingEvent = false
+        this.selectedLocation = latlng
+        this.isDrawerVisible = true 
+
+        const map = this.getMap()
+        if (map) {
+          map.getContainer().style.cursor = ''
+        }
+      }
+    },
+    closeDrawer() {
+      this.selectedLocation = null
     },
   },
 }
@@ -91,5 +109,6 @@ export default {
   width: 100%;
   height: 100%;
   position: relative;
+  z-index: 10;
 }
 </style>
